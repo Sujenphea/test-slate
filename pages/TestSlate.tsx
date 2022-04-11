@@ -58,6 +58,19 @@ const TestSlate = () => {
     },
   ])
 
+  // get initial value from database
+  useEffect(() => {
+    const x: Descendant[] = JSON.parse(localStorage.getItem('content') ?? '') || [
+      {
+        type: 'paragraph',
+        children: [{ text: 'A line of text in a paragraph.' }],
+      },
+    ]
+    Transforms.deselect(editor)
+    editor.children = x
+    Transforms.select(editor, Editor.end(editor, []))
+  }, [])
+
   // render element as different blocks
   const renderElement = useCallback((props) => {
     switch (props.element.type) {
@@ -112,6 +125,7 @@ const TestSlate = () => {
 
             console.log('changes: ', content)
             setSlateEditorValue(value)
+            localStorage.setItem('content', content)
           }
         }}
       >
