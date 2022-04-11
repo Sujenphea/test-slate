@@ -98,15 +98,7 @@ const TestSlate = () => {
       <button
         onMouseDown={(event) => {
           event.preventDefault()
-          Transforms.insertNodes(
-            editor,
-            { type: 'code', children: [{ text: '', bold: false }] },
-            { at: [editor.children.length] }
-          )
-          Transforms.select(editor, {
-            anchor: Editor.start(editor, [editor.children.length - 1]),
-            focus: Editor.end(editor, [editor.children.length - 1]),
-          })
+          Transforms.insertNodes(editor, { type: 'code', children: [{ text: '', bold: false }] })
         }}
       >
         code
@@ -123,7 +115,7 @@ const TestSlate = () => {
           if (madeChanges) {
             const content = JSON.stringify(value)
 
-            console.log('changes: ', content)
+            console.log('changes: ', value)
             setSlateEditorValue(value)
             localStorage.setItem('content', content)
           }
